@@ -6,11 +6,18 @@ import (
 )
 
 func main() {
+	r := Setup()
+	r.Run()
+}
+
+func Setup() *gin.Engine {
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
 		})
 	})
-	r.Run()
+	gr := r.Group("/api")
+	RegisterProduct(gr)
+	return r
 }
